@@ -1,0 +1,1 @@
+cmd_drivers/input/touchscreen/built-in.o :=  arm-linux-androideabi-ld -EL    -r -o drivers/input/touchscreen/built-in.o drivers/input/touchscreen/melfas_ts.o drivers/input/touchscreen/mcs8000_download.o drivers/input/touchscreen/mms100_ISC_download.o 

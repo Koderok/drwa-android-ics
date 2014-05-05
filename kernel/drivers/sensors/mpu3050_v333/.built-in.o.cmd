@@ -1,0 +1,1 @@
+cmd_drivers/sensors/mpu3050_v333/built-in.o :=  arm-linux-androideabi-ld -EL    -r -o drivers/sensors/mpu3050_v333/built-in.o drivers/sensors/mpu3050_v333/mpu3050.o drivers/sensors/mpu3050_v333/sensors_core.o drivers/sensors/mpu3050_v333/timerirq.o 

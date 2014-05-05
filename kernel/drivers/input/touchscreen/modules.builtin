@@ -1,0 +1,3 @@
+kernel/drivers/input/touchscreen/melfas_ts.ko
+kernel/drivers/input/touchscreen/mcs8000_download.ko
+kernel/drivers/input/touchscreen/mms100_ISC_download.ko

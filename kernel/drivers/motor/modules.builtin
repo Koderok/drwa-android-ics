@@ -1,0 +1,2 @@
+kernel/drivers/motor/isa1200_vibrator.ko
+kernel/drivers/motor/vibrator.ko

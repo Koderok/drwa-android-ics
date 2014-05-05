@@ -1,0 +1,1 @@
+cmd_drivers/media/video/tegra/built-in.o :=  arm-linux-androideabi-ld -EL    -r -o drivers/media/video/tegra/built-in.o drivers/media/video/tegra/avp/built-in.o drivers/media/video/tegra/mediaserver/built-in.o drivers/media/video/tegra/tegra_dtv.o drivers/media/video/tegra/tegra_camera.o drivers/media/video/tegra/s5k5ccgx.o drivers/media/video/tegra/s5k5bbgx_p4.o 

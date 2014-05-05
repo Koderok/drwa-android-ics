@@ -1,0 +1,1 @@
+cmd_drivers/net/wireless/bcmdhd/dhd.ko := arm-linux-androideabi-ld -EL -r  -T /home/pulkit/work/SIL/android/kernel/GT-P7300_ICS_Opensource_Update1/Kernel/scripts/module-common.lds --build-id  -o drivers/net/wireless/bcmdhd/dhd.ko drivers/net/wireless/bcmdhd/dhd.o drivers/net/wireless/bcmdhd/dhd.mod.o
