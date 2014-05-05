@@ -379,6 +379,7 @@ struct tcp_sock {
 	u32	snd_cwnd_clamp; /* Do not allow snd_cwnd to grow above this */
 	u32	snd_cwnd_used;
 	u32	snd_cwnd_stamp;
+	
 
  	u32	rcv_wnd;	/* Current receiver window		*/
 	u32	write_seq;	/* Tail(+1) of data held in tcp send buffer */
@@ -428,11 +429,16 @@ struct tcp_sock {
 
 	int			linger2;
 
+/* FOr DRWA */
+	u32 cwnd_est;
+
+
 /* Receiver side RTT estimation */
 	struct {
 		u32	rtt;
 		u32	seq;
 		u32	time;
+		u32 rtt_min;
 	} rcv_rtt_est;
 
 /* Receiver queue space */

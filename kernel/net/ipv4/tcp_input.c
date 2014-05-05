@@ -72,7 +72,6 @@
 #include <linux/ipsec.h>
 #include <asm/unaligned.h>
 #include <net/netdma.h>
-
 int sysctl_tcp_timestamps __read_mostly = 1;
 int sysctl_tcp_window_scaling __read_mostly = 1;
 int sysctl_tcp_sack __read_mostly = 1;
@@ -366,7 +365,8 @@ static void tcp_init_buffer_space(struct sock *sk)
 		tcp_fixup_sndbuf(sk);
 
 	tp->rcvq_space.space = tp->rcv_wnd;
-
+	tp->rcv_rtt_est.rtt_min=100000000; //Initialization at a very high value;
+	tp->cwnd_est=0;
 	maxwin = tcp_full_space(sk);
 
 	if (tp->window_clamp >= maxwin) {
@@ -467,8 +467,12 @@ static void tcp_rcv_rtt_update(struct tcp_sock *tp, u32 sample, int win_dep)
 		new_sample = m << 3;
 	}
 
-	if (tp->rcv_rtt_est.rtt != new_sample)
-		tp->rcv_rtt_est.rtt = new_sample;
+	if (tp->rcv_rtt_est.rtt != new_sample) 
+		{
+			tp->rcv_rtt_est.rtt = new_sample;
+			if(tp->rcv_rtt_est.rtt<tp->rcv_rtt_est.rtt_min) tp->rcv_rtt_est.rtt_min = tp->rcv_rtt_est.rtt; // Updating RTTmin..
+
+		}
 }
 
 static inline void tcp_rcv_rtt_measure(struct tcp_sock *tp)
@@ -503,7 +507,8 @@ void tcp_rcv_space_adjust(struct sock *sk)
 	struct tcp_sock *tp = tcp_sk(sk);
 	int time;
 	int space;
-
+	//int alpha=0.5;  //Alpha Value to be thought about
+	int lambda=3; // Lambda value 
 	if (tp->rcvq_space.time == 0)
 		goto new_measure;
 
@@ -511,9 +516,17 @@ void tcp_rcv_space_adjust(struct sock *sk)
 	if (time < (tp->rcv_rtt_est.rtt >> 3) || tp->rcv_rtt_est.rtt == 0)
 		return;
 
-	space = 2 * (tp->copied_seq - tp->rcvq_space.seq);
+	//space = 2 * (tp->copied_seq - tp->rcvq_space.seq);
+	space = tp->copied_seq - tp->rcvq_space.seq;
+	if(tp->cwnd_est==0`		tp->cwnd_est=space;
+			}
+	else
+		{
+			tp->cwnd_est = (tp->cwnd_est)/2 + space/2; 
+		}
+	space = (lambda) *(tp->cwnd_est)*(tp->rcv_rtt_est.rtt_min)/(tp->rcv_rtt_est.rtt);
 
-	space = max(tp->rcvq_space.space, space);
+	//space = max(tp->rcvq_space.space, space);
 
 	if (tp->rcvq_space.space != space) {
 		int rcvmem;
