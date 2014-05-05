@@ -1,6 +1,6 @@
 # DRWA Patched Android ICS kernel
 
-This was a project undertaken by Pulkit Yadav and Shivam Singh as a part of the course SIL769 under Prof. [Aaditeshwar Seth](www.cse.iitd.ernet.in/~aseth).
+This was a project undertaken by Pulkit Yadav and Shivam Singh as a part of the course SIL769 (Internet Traffic - Measurement, Modeling & Analysis) at IIT Delhi under [Prof. Aaditeshwar Seth](http://www.cse.iitd.ernet.in/~aseth).
 
 To tackle the bufferbloat problem, predominantly affecting cellular 3G and 4G networks, an algorithm called *Dynamic Receive Window Adjustment (DRWA)* was proposed (Haiqing Jiang et al, [Tackling Bufferbloat in 3G/4G Networks](http://dl.acm.org/citation.cfm?id=2398810), IMC 2012).
 
